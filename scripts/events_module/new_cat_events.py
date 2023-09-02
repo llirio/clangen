@@ -41,10 +41,10 @@ class NewCatEvents:
                 outside_cat = NewCatEvents.select_outside_cat()
                 backstory = outside_cat.status
                 outside_cat = NewCatEvents.update_cat_properties(outside_cat)
-                event_text = f"A {backstory} named {outside_cat.name} waits on the border, asking to join the Clan."
+                event_text = f"{backstory} с именем {outside_cat.name} ждет котов на границе, с желанием вступить в клан."
                 name_change = random.choice([1, 2])
                 if name_change == 1 or backstory == 'former Clancat':
-                    event_text = event_text + f" They decide to keep their name."
+                    event_text = event_text + f" Они решают сохранить свое старое имя."
                 elif name_change == 2 and backstory != 'former Clancat':
                     outside_cat.name = Name(outside_cat.status, 
                                             colour=outside_cat.pelt.colour,
@@ -53,7 +53,7 @@ class NewCatEvents:
                                             tortiepattern=outside_cat.pelt.tortiepattern,
                                             biome=game.clan.biome)
                     
-                    event_text = event_text + f" They decide to take a new name, {outside_cat.name}."
+                    event_text = event_text + f" Они решают взять новое имя, {outside_cat.name}."
                 outside_cat.thought = "Is looking around the camp with wonder"
                 involved_cats = [outside_cat.ID]
                 game.cur_events_list.append(Single_Event(event_text, ["misc"], involved_cats))
@@ -98,13 +98,13 @@ class NewCatEvents:
 
         status = None
         if "new_warrior" in new_cat_event.tags:
-            status = "warrior"
+            status = "воитель"
         elif "new_app" in new_cat_event.tags:
-            status = "apprentice"
+            status = "оруженосец"
         elif "new_med_app" in new_cat_event.tags:
-            status = "medicine cat apprentice"
+            status = "ученик целителя"
         elif "new_med" in new_cat_event.tags:
-            status = "medicine cat"
+            status = "целитель"
 
 
         created_cats = create_new_cat(Cat,
@@ -123,7 +123,7 @@ class NewCatEvents:
         if new_cat_event.litter:
             # If we have a litter joining, assign them a blood parent for
             # relation-tracking purposes
-            thought = "Is happy their kits are safe"
+            thought = "Счастлива, что их котята в безопасности"
             blood_parent = create_new_cat(Cat, Relationship,
                                           status=random.choice(["loner", "kittypet"]),
                                           alive=False,
